@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 // Use the d3 library to read the sample.json from the url
->>>>>>> 7e014330144535ee207e4803c794130104786faa
 const url= "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json";
 
 // Fetch the JSON data and call the init function
