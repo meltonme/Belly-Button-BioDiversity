@@ -1,5 +1,5 @@
 // Use the d3 library to read the sample.json from the url
-const url= "https://static.bc-edx.com/data/dl-1-2/m14/lms/samples.json";
+const url= "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json";
 
 const data = d3.json(url);
 console.log("Data ", data);
