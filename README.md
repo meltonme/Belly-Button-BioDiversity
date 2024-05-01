@@ -10,10 +10,14 @@ This project focuses on building an interactive web dashboard to explore and vis
 - Structure
 - JavaScript Code
 
-Data Loading: The data is fetched from a JSON file hosted on AWS.
-Data Filtering: The data is filtered based on the selected test subject ID.
-Plot Generation: Two types of plots are generated: a bar chart and a bubble chart.
-Metadata Display: Demographic information for the selected test subject is displayed in a side panel.
+Data Loading:
+- The data is fetched from a JSON file hosted on AWS.
+Data Filtering:
+- The data is filtered based on the selected test subject ID.
+Plot Generation:
+- Two types of plots are generated: a bar chart and a bubble chart.
+Metadata Display:
+- Demographic information for the selected test subject is displayed in a side panel.
 
 ## HTML Code
 - Dropdown Menu: A dropdown menu allows users to select a test subject ID.
