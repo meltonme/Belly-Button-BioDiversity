@@ -7,11 +7,23 @@ console.log("Data ", data);
 // Fetch the JSON data and console log it
 d3.json(url).then(function(data) {
   console.log("data is", data)
-})
+});
 
 // To select the new sample
 var sampleSelector = d3.select("#selDataset")
 console.log("sampleSelector is",sampleSelector)
+
+// Had to create a new function so that variables match from the index.html file
+// Define the optionChanged function
+function optionChanged(selectedSampleId) {
+  // Add your code here to handle the change when a new sample ID is selected
+  console.log("Selected Sample ID: ", selectedSampleId);
+
+  // Call the functions to update the visualizations and metadata based on the selected sample ID
+  barChart(selectedSampleId);
+  bubbleChart(selectedSampleId);
+  sampleMetadata(selectedSampleId);
+}
 
 function init() {
     d3.json(url).then(function(data) {
