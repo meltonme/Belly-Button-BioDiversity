@@ -3,6 +3,37 @@ const url= "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json";
 
 // Fetch the JSON data and call the init function
 d3.json(url).then(function(data) {
+console.log("data is", data)
+});
+
+// To select the new sample
+var sampleSelector = d3.select("#selDataset")
+console.log("sampleSelector is",sampleSelector)
+
+// Had to create a new function so that variables match from the index.html file
+// Define the optionChanged function
+function optionChanged(selectedSampleId) {
+  // Add your code here to handle the change when a new sample ID is selected
+  console.log("Selected Sample ID: ", selectedSampleId);
+
+  // Call the functions to update the visualizations and metadata based on the selected sample ID
+  barChart(selectedSampleId);
+  bubbleChart(selectedSampleId);
+  sampleMetadata(selectedSampleId);
+}
+
+function init() {
+    d3.json(url).then(function(data) {
+        // To get the sample names
+        let sampleName = data.names
+        console.log("sampleSelector is",sampleSelector)
+        // let sampleData = data.samples
+        console.log("sample names are", sampleName)
+        // Inserts the selected sample id 
+        for(let i=0;i<sampleName.length;i++){
+          var sampleId = sampleName[i]
+          sampleSelector.append("option").text(sampleId).property("value",sampleId)};
+=======
     init(data);
 }).catch(function(error) {
     console.log("Error fetching data:", error);
