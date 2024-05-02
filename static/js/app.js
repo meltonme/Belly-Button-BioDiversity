@@ -1,61 +1,42 @@
 // Use the d3 library to read the sample.json from the url
-const url= "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json";
+const url = "https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json";
+
+let data; // Define data in a higher scope accessible to all functions
 
 // Fetch the JSON data and call the init function
-d3.json(url).then(function(data) {
-console.log("data is", data)
+d3.json(url).then(function(response) {
+    data = response;
+    console.log("data is", data);
+    init(data);
 });
 
 // To select the new sample
-var sampleSelector = d3.select("#selDataset")
-console.log("sampleSelector is",sampleSelector)
+var sampleSelector = d3.select("#selDataset");
+console.log("sampleSelector is", sampleSelector);
 
-// Had to create a new function so that variables match from the index.html file
 // Define the optionChanged function
 function optionChanged(selectedSampleId) {
-  // Add your code here to handle the change when a new sample ID is selected
-  console.log("Selected Sample ID: ", selectedSampleId);
+    // Add your code here to handle the change when a new sample ID is selected
+    console.log("Selected Sample ID: ", selectedSampleId);
 
-  // Call the functions to update the visualizations and metadata based on the selected sample ID
-  barChart(selectedSampleId);
-  bubbleChart(selectedSampleId);
-  sampleMetadata(selectedSampleId);
+    // Call the functions to update the visualizations and metadata based on the selected sample ID
+    barChart(data, selectedSampleId);
+    bubbleChart(data, selectedSampleId);
+    sampleMetadata(data, selectedSampleId);
 }
-
-function init() {
-    d3.json(url).then(function(data) {
-        // To get the sample names
-        let sampleName = data.names
-        console.log("sampleSelector is",sampleSelector)
-        // let sampleData = data.samples
-        console.log("sample names are", sampleName)
-        // Inserts the selected sample id 
-        for(let i=0;i<sampleName.length;i++){
-          var sampleId = sampleName[i]
-          sampleSelector.append("option").text(sampleId).property("value",sampleId)};
-=======
-    init(data);
-}).catch(function(error) {
-    console.log("Error fetching data:", error);
-});
 
 function init(data) {
-    // To select the new sample
-    var sampleSelector = d3.select("#selDataset");
-    
-    // Get the sample names
+    // To get the sample names
     let sampleName = data.names;
-    // Inserts the selected sample id 
-    sampleName.forEach(sampleId => {
+    console.log("sampleSelector is", sampleSelector);
+
+    // Inserts the selected sample id
+    for (let i = 0; i < sampleName.length; i++) {
+        var sampleId = sampleName[i];
         sampleSelector.append("option").text(sampleId).property("value", sampleId);
-    });
-    
-    // Initialize with the first sample
-    const initialSampleId = sampleName[0];
-    barChart(data, initialSampleId);
-    bubbleChart(data, initialSampleId);
-    sampleMetadata(data, initialSampleId);
+    }
 }
+
 
 //  Horizontal Bar chart with the top 10 samples
 function barChart(data, sampleId) {
@@ -107,16 +88,15 @@ function bubbleChart(data, sampleId) {
     Plotly.newPlot("bubble", [trace2], layout2);
 }
 
-function updateChartsAndMetadata() {
-  // Get the selected sample ID
-  let selectedSample = d3.select("#selDataset").property("value");
+function updateChartsAndMetadata(data) {
+    // Get the selected sample ID
+    let selectedSample = d3.select("#selDataset").property("value");
 
-  // Call the function to update charts and metadata
-  barChart(data, selectedSample);
-  bubbleChart(data, selectedSample);
-  sampleMetadata(data, selectedSample);
+    // Call the function to update charts and metadata
+    barChart(data, selectedSample);
+    bubbleChart(data, selectedSample);
+    sampleMetadata(data, selectedSample);
 }
-
 
 function sampleMetadata(data, sampleId) {
   let MetadataSample = d3.select("#sample-metadata").html("");
@@ -129,12 +109,8 @@ function sampleMetadata(data, sampleId) {
   });
 }
 
-
-
-
-// Event listener for sample selection
-d3.select("#selDataset").on("change", function() {
-  let selectedSample = d3.select(this).property("value");
-  updateChartsAndMetadata(data, selectedSample);
-});
-
+// Event listener for sample selection 
+d3.select("#selDataset").on("change", function() { 
+    let selectedSample = d3.select(this).property("value"); 
+    updateChartsAndMetadata(data, selectedSample); 
+  });
